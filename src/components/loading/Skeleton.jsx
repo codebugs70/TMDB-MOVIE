@@ -1,10 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Skeleton = ({ className = "", color = "" }) => {
-  return (
-    <div className={`animate-pulse bg-darkSaga ${className} ${color}`}></div>
-  );
+const Skeleton = ({ className = "", color = "bg-darkSaga" }) => {
+  return <div className={`animate-pulse  ${className} ${color}`}></div>;
 };
 
 /* Add PropsTypes */

@@ -3,6 +3,7 @@ import { MOVIE_CARDIMG } from "../../utils/config";
 import Button from "../button/Button";
 import altImg from "/error-movie.jpg";
 import Skeleton from "../loading/Skeleton";
+/* ====================================================== */
 
 const MovieItem = ({ data, imageHeight = "h-[412px] w-full" }) => {
   return (

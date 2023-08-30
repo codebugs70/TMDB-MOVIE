@@ -5,22 +5,29 @@ import { useState } from "react";
 import { API_KEY, API_SEARCH_QUERY, MOVIE_CARDIMG } from "../../utils/config";
 import { Link } from "react-router-dom";
 import MenuDropdown from "../menu/MenuDropdown";
+import MovieSearchItem, {
+  MovieSearchItemSkeleton,
+} from "../movies/MovieSearchItem";
+import { v4 } from "uuid";
 /* ====================================================== */
 
 const Header = () => {
   const [isHeaderActive, setIsHeaderActive] = useState(false);
   const [searchVal, setSearchVal] = useState("");
   const [movies, setMovies] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   // Search query
   useEffect(() => {
     async function fetchMovies() {
+      setIsLoading(true);
       if (!searchVal) return;
       const res = await axios(
         `${API_SEARCH_QUERY}?api_key=${API_KEY}&query=${searchVal}`
       );
       const results = res.data.results;
       setMovies(results);
+      setIsLoading(false);
     }
     fetchMovies();
   }, [searchVal]);
@@ -62,30 +69,22 @@ const Header = () => {
             />
             {searchVal && (
               <ul className="absolute  z-30 bg-darkSaga flex flex-col gap-2 min-w-[380px] right-0 mt-2 rounded-md">
-                {movies.length > 0 &&
-                  movies.splice(0, 5).map((item) => (
-                    <Link
-                      to={`/movie/${item.id}`}
-                      key={item.id}
-                      className="flex items-start gap-4 p-2 hover:bg-white hover:bg-opacity-10"
-                    >
-                      <div className="aspect-square h-[70px]">
-                        <img
-                          src={`${MOVIE_CARDIMG}/${item.poster_path}`}
-                          className="rounded-md img-cover"
-                          alt=""
-                        />
-                      </div>
-                      <div>
-                        <h1 className="text-sm text-saga line-clamp-2">
-                          {item.title}
-                        </h1>
-                        <p className="mt-1 text-xs line-clamp-2">
-                          {item.overview}
-                        </p>
-                      </div>
-                    </Link>
-                  ))}
+                {isLoading &&
+                  Array(5)
+                    .fill(0)
+                    .map((item, index) => (
+                      <MovieSearchItemSkeleton
+                        key={index}
+                      ></MovieSearchItemSkeleton>
+                    ))}
+
+                {!isLoading &&
+                  movies.length > 0 &&
+                  movies
+                    .splice(0, 5)
+                    .map((item) => (
+                      <MovieSearchItem key={v4()} item={item}></MovieSearchItem>
+                    ))}
               </ul>
             )}
           </div>
