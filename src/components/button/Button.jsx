@@ -6,7 +6,7 @@ const Button = ({
   children,
   onClick = () => {},
   type = "button",
-  className = "rounded-xl",
+  className = "rounded-md",
   variant = "primary",
   icon,
   size = "normal",
@@ -46,7 +46,7 @@ const Button = ({
       <Link
         to={`/${link}`}
         type={type}
-        className={`${className} ${variantClass} ${sizeClass} font-semibold flex items-center  gap-2 `}
+        className={`${className} ${variantClass} ${sizeClass} font-semibold flex items-center  gap-2 rounded-bl-md rounded-br-md `}
       >
         {icon}
         {children}
@@ -58,7 +58,7 @@ const Button = ({
     <button
       onClick={onClick}
       type={type}
-      className={`${className} ${variantClass} ${sizeClass} font-semibold flex items-center  gap-2 `}
+      className={`${className} ${variantClass} ${sizeClass} font-semibold flex items-center  gap-2 rounded-bl-md rounded-br-md`}
     >
       {icon}
       {children}

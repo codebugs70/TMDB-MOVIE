@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { API_KEY, API_SEARCH_QUERY, MOVIE_CARDIMG } from "../../utils/config";
 import { Link } from "react-router-dom";
+import MenuDropdown from "../menu/MenuDropdown";
 /* ====================================================== */
 
 const Header = () => {
@@ -42,16 +43,16 @@ const Header = () => {
   }, []);
 
   return (
-    <>
-      <header
-        className={`${
-          isHeaderActive ? "bg-darkGraphite" : ""
-        } fixed z-40 w-full py-4`}
-      >
-        <div className="flex items-center justify-between page-container">
-          <h1 className="text-4xl font-semibold text-white">TMDB-MOVIE</h1>
+    <header
+      className={`${
+        isHeaderActive ? "bg-primaryDark" : ""
+      } fixed z-40 w-full py-4`}
+    >
+      <div className="flex items-center justify-between page-container">
+        <h1 className="text-4xl font-semibold text-linear">TMDB-MOVIE</h1>
 
-          <div className="relative w-full max-w-xs">
+        <section className="relative flex items-center w-full max-w-xs gap-2">
+          <div className="w-full">
             <input
               value={searchVal}
               onChange={(e) => setSearchVal(e.target.value)}
@@ -88,9 +89,10 @@ const Header = () => {
               </ul>
             )}
           </div>
-        </div>
-      </header>
-    </>
+          <MenuDropdown></MenuDropdown>
+        </section>
+      </div>
+    </header>
   );
 };
 

@@ -7,8 +7,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
 import { v4 } from "uuid";
-import { API_KEY, API_URL, MOVIE_CARDIMG } from "../../utils/config";
-import Button from "../button/Button";
+import { API_KEY, API_URL } from "../../utils/config";
 import MovieItem from "./MovieItem";
 /* ====================================================== */
 
@@ -18,9 +17,13 @@ const MovieList = ({ category }) => {
   useEffect(() => {
     async function fetchMovies() {
       if (!category) return;
-      const res = await axios(`${API_URL}/${category}?api_key=${API_KEY}`);
-      const results = res.data.results;
-      setMovies(results);
+      try {
+        const res = await axios(`${API_URL}/${category}?api_key=${API_KEY}`);
+        const results = res.data.results;
+        setMovies(results);
+      } catch (error) {
+        console.error("Error fetching movies:", error);
+      }
     }
     fetchMovies();
   }, [category]);
@@ -29,7 +32,7 @@ const MovieList = ({ category }) => {
     <div>
       <Swiper
         slidesPerView={4}
-        spaceBetween={20}
+        spaceBetween={10}
         loop={true}
         centeredSlides={true}
         grabCursor={true}

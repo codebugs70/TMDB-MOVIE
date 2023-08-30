@@ -19,7 +19,7 @@
     @apply text-white;
   }
   .loadingSpin {
-    @apply w-[100px] h-[100px] animate-spin rounded-full border-t-[10px] border-t-transparent border-[10px] border-solid border-blue-500;
+    @apply w-[100px] h-[100px] animate-spin rounded-full border-t-[10px] border-t-transparent border-[10px] border-solid border-saga;
   }
   .page-container {
     @apply w-full max-w-[1170px] px-5 mx-auto;
@@ -27,6 +27,14 @@
   .img-cover {
     @apply w-full h-full object-cover;
   }
+}
+
+/* Text linear */
+.text-linear {
+  font-weight: bold;
+  background: linear-gradient(to right, #86d46b, #00ba7c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* Custom swiper */

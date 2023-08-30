@@ -40,11 +40,13 @@ const MovieCredit = ({ id }) => {
         {cast &&
           cast.splice(0, 10).map((item) => (
             <SwiperSlide key={item.cast_id}>
-              <img
-                src={`${MOVIE_CARDIMG}/${item.profile_path}`}
-                alt=""
-                className="object-cover rounded-md aspect-square"
-              />
+              <div className="aspect-square">
+                <img
+                  src={`${MOVIE_CARDIMG}/${item.profile_path}`}
+                  alt=""
+                  className="rounded-md img-cover"
+                />
+              </div>
             </SwiperSlide>
           ))}
       </Swiper>
