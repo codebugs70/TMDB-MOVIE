@@ -1,0 +1,55 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap");
+/* ============================================= */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import "reset";
+/* ============================================== */
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+  body {
+    @apply font-primary bg-primaryDark text-white;
+  }
+  button {
+    @apply text-white;
+  }
+  .loadingSpin {
+    @apply w-[100px] h-[100px] animate-spin rounded-full border-t-[10px] border-t-transparent border-[10px] border-solid border-blue-500;
+  }
+  .page-container {
+    @apply w-full max-w-[1170px] px-5 mx-auto;
+  }
+  .img-cover {
+    @apply w-full h-full object-cover;
+  }
+}
+
+/* Custom swiper */
+:root {
+  --swiper-navigation-size: 14px !important;
+  --swiper-theme-color: #86d46b !important;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  background-color: #86d46b;
+  right: 10px;
+  padding: 18px;
+  border-radius: 100rem;
+  color: #fff !important;
+  fill: black !important;
+  stroke: black !important;
+}
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  background-color: #62a54b;
+}
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-weight: 600;
+}
