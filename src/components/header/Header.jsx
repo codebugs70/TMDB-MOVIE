@@ -53,10 +53,12 @@ const Header = () => {
     <header
       className={`${
         isHeaderActive ? "bg-primaryDark" : ""
-      } fixed z-40 w-full py-4`}
+      } fixed z-[999] w-full py-4`}
     >
       <div className="flex items-center justify-between page-container">
-        <h1 className="text-4xl font-semibold text-linear">TMDB-MOVIE</h1>
+        <Link to="/" className="text-4xl font-semibold text-linear">
+          TMDB-MOVIE
+        </Link>
 
         <section className="relative flex items-center w-full max-w-xs gap-2">
           <div className="w-full">

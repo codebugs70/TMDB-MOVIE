@@ -9,8 +9,8 @@ import { Link } from "react-router-dom";
 
 const MenuDropdown = () => {
   const links = [
-    { label: "Movies", href: "/movies", icon: <RiMovie2Line /> },
     { label: "Home", href: "/", icon: <AiOutlineHome /> },
+    { label: "Movies", href: "/movies", icon: <RiMovie2Line /> },
     { label: "Settings", icon: <AiOutlineSetting /> },
   ];
 

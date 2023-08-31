@@ -5,7 +5,7 @@ import altImg from "/error-movie.jpg";
 import Skeleton from "../loading/Skeleton";
 /* ====================================================== */
 
-const MovieItem = ({ data, imageHeight = "h-[412px] w-full" }) => {
+const MovieItem = ({ data, imageHeight = "h-[350px] w-full" }) => {
   return (
     <article className="flex flex-col">
       <div className={` ${imageHeight}`}>
@@ -34,7 +34,7 @@ export default MovieItem;
 export const MovieItemSkeleton = () => {
   return (
     <article>
-      <Skeleton className="w-full h-[420px] rounded-md"></Skeleton>
+      <Skeleton className="w-full h-[400px] rounded-md"></Skeleton>
     </article>
   );
 };

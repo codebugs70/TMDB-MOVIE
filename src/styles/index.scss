@@ -29,6 +29,45 @@
   }
 }
 
+/* React pagination */
+ul[aria-label="Pagination"] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  font-size: 18px;
+  .selected {
+    @apply bg-saga;
+  }
+  li {
+    border-radius: 5px;
+    background-color: rgba(133, 212, 107, 0.5);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    font-weight: 600;
+    color: black;
+    align-items: center;
+    cursor: pointer;
+    &:hover {
+      background-color: #86d46b;
+    }
+  }
+  li.break {
+    background: none;
+    color: whitesmoke;
+  }
+  li.previous,
+  li.next {
+    background-color: white;
+    font-size: 25px;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}
+
 /* Text linear */
 .text-linear {
   font-weight: bold;
