@@ -1,38 +1,19 @@
+import useFetchMoviesType from "../../hooks/useFetchMoviesType";
 import React from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
-import { Navigation } from "swiper/modules";
-import { useEffect } from "react";
-import { useState } from "react";
-import axios from "axios";
-import { v4 } from "uuid";
-import { API_KEY, API_URL } from "../../utils/config";
+import PropTypes from "prop-types";
 import MovieItem, { MovieItemSkeleton } from "./MovieItem";
+import { v4 } from "uuid";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+import "swiper/css/navigation";
+import "swiper/css";
 /* ====================================================== */
 
-const MovieList = ({ category }) => {
-  const [movies, setMovies] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchMovies() {
-      if (!category) return;
-      try {
-        const res = await axios(`${API_URL}/${category}?api_key=${API_KEY}`);
-        const results = res.data.results;
-        setMovies(results);
-        setIsLoading(false);
-      } catch (error) {
-        console.error("Error fetching movies:", error);
-        setIsLoading(false);
-      }
-    }
-    fetchMovies();
-  }, [category]);
+const MovieList = ({ type }) => {
+  const { movies, isLoading } = useFetchMoviesType(type);
 
   return (
-    <div>
+    <section>
       <Swiper
         slidesPerView={4}
         spaceBetween={10}
@@ -44,10 +25,10 @@ const MovieList = ({ category }) => {
         className="mySwiper"
       >
         {isLoading &&
-          Array(20)
+          Array(15)
             .fill(0)
-            .map((item, index) => (
-              <SwiperSlide key={index}>
+            .map(() => (
+              <SwiperSlide key={v4()}>
                 <MovieItemSkeleton></MovieItemSkeleton>
               </SwiperSlide>
             ))}
@@ -62,8 +43,13 @@ const MovieList = ({ category }) => {
             );
           })}
       </Swiper>
-    </div>
+    </section>
   );
+};
+
+/* Add PropsTypes */
+MovieList.propTypes = {
+  type: PropTypes.string,
 };
 
 export default MovieList;

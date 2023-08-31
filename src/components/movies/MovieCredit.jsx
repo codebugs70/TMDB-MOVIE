@@ -1,32 +1,22 @@
 import React from "react";
-import { useState } from "react";
-import { API_KEY, API_URL, MOVIE_CARDIMG } from "../../utils/config";
-import { useEffect } from "react";
-import axios from "axios";
+import altImg from "/user.png";
 import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
+import { MOVIE_CARDIMG } from "../../utils/config";
+import "swiper/css/navigation";
+import "swiper/css";
+import useFetchMovieCredits from "../../hooks/useFetchMovieCredits";
+import { v4 } from "uuid";
+import Skeleton from "../loading/Skeleton";
+import PropTypes from "prop-types";
 /* ====================================================== */
 
 const MovieCredit = ({ id }) => {
-  const [casts, setCasts] = useState([]);
-
-  // Fetch movie
-  useEffect(() => {
-    async function fetchMovies() {
-      if (!id) return;
-      const res = await axios(`${API_URL}/${id}/credits?api_key=${API_KEY}`);
-      const results = res.data;
-      setCasts(results);
-    }
-    fetchMovies();
-  }, [id]);
-
-  const { cast } = casts;
+  const { credits, isLoading } = useFetchMovieCredits(id);
+  const { cast } = credits;
 
   return (
-    <ul>
+    <section>
       <Swiper
         slidesPerView={4}
         spaceBetween={10}
@@ -37,21 +27,55 @@ const MovieCredit = ({ id }) => {
         modules={[Navigation]}
         className="mySwiper"
       >
-        {cast &&
+        {isLoading &&
+          Array(10)
+            .fill(0)
+            .map(() => (
+              <SwiperSlide key={v4()}>
+                <CreditItemSkeleton></CreditItemSkeleton>
+              </SwiperSlide>
+            ))}
+
+        {!isLoading &&
+          cast &&
           cast.splice(0, 10).map((item) => (
             <SwiperSlide key={item.cast_id}>
-              <div className="aspect-square">
-                <img
-                  src={`${MOVIE_CARDIMG}/${item.profile_path}`}
-                  alt=""
-                  className="rounded-md img-cover"
-                />
-              </div>
+              <CreditItem data={item} />
             </SwiperSlide>
           ))}
       </Swiper>
-    </ul>
+    </section>
   );
 };
 
+/* Add PropsTypes */
+MovieCredit.propTypes = {
+  id: PropTypes.string,
+};
+
 export default MovieCredit;
+
+function CreditItem({ data }) {
+  if (!data) return null;
+  return (
+    <div className="aspect-square">
+      <img
+        src={`${MOVIE_CARDIMG}/${data?.profile_path}`}
+        alt=""
+        className="rounded-md img-cover"
+        onError={(e) => {
+          e.target.src = altImg;
+        }}
+      />
+    </div>
+  );
+}
+
+function CreditItemSkeleton() {
+  return (
+    <Skeleton
+      baseColor="bg-darkSaga"
+      className="w-[275px] h-[275px] rounded-lg"
+    ></Skeleton>
+  );
+}

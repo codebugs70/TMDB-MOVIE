@@ -1,29 +1,14 @@
+import useFetchMovieVideo from "../../hooks/useFetchMovieVideo";
 import React from "react";
-import { useState } from "react";
-import { API_KEY, API_URL, MOVIE_CARDIMG } from "../../utils/config";
-import { useEffect } from "react";
-import axios from "axios";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
-import { Navigation } from "swiper/modules";
-import MovieItem from "./MovieItem";
 import { v4 } from "uuid";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+import "swiper/css/navigation";
+import "swiper/css";
 /* ====================================================== */
 
 const MovieVideo = ({ id }) => {
-  const [videos, setVideos] = useState([]);
-
-  // Fetch movie
-  useEffect(() => {
-    async function fetchMovies() {
-      if (!id) return;
-      const res = await axios(`${API_URL}/${id}/videos?api_key=${API_KEY}`);
-      const results = res.data.results;
-      setVideos(results);
-    }
-    fetchMovies();
-  }, [id]);
+  const { videos } = useFetchMovieVideo(id);
 
   return (
     <ul>
@@ -48,7 +33,7 @@ const MovieVideo = ({ id }) => {
                   title="When it feels like your sufferings never end....."
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowfullscreen
+                  allowFullScreen
                   className="img-cover"
                 ></iframe>
               </div>

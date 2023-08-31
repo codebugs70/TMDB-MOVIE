@@ -1,37 +1,31 @@
+import useFetchMovieID from "../hooks/useFetchMovieID";
 import React from "react";
+import MovieVideo from "../components/movies/MovieVideo";
+import MovieSimilar from "../components/movies/MovieSimilar";
+import MovieProduction from "../components/movies/MovieProduction";
+import MoviePoster from "../components/movies/MoviePoster";
+import MovieGenres from "../components/movies/MovieGenres";
+import MovieCredit from "../components/movies/MovieCredit";
+import MovieCompany from "../components/movies/MovieCompany";
+import Heading from "../components/heading/Heading";
+import Button from "../components/button/Button";
 import { useEffect } from "react";
-import { useState } from "react";
+import { MOVIE_IMG } from "../utils/config";
 import { Link, useParams } from "react-router-dom";
-import { API_KEY, API_URL, MOVIE_CARDIMG, MOVIE_IMG } from "../utils/config";
-import axios from "axios";
 import { BiUpvote, BiUser } from "react-icons/bi";
 import { AiOutlineArrowLeft } from "react-icons/ai";
-import MovieCredit from "../components/movies/MovieCredit";
-import Heading from "../components/heading/Heading";
-import MovieSimilar from "../components/movies/MovieSimilar";
-import MovieVideo from "../components/movies/MovieVideo";
 /* ====================================================== */
 
 const MovieDetailPage = () => {
   const { id } = useParams();
-  const [movie, setMovie] = useState({});
+  const { movie } = useFetchMovieID(id);
 
   // FIX SCROLL BUG
   useEffect(() => {
     document.body.scrollIntoView({ behavior: "smooth", block: "start" });
   }, []);
 
-  // Fetch movie
-  useEffect(() => {
-    async function fetchMovies() {
-      if (!id) return;
-      const res = await axios(`${API_URL}/${id}?api_key=${API_KEY}`);
-      const results = res.data;
-      setMovie(results);
-    }
-    fetchMovies();
-  }, [id]);
-
+  // Destruct
   const {
     title,
     genres,
@@ -46,7 +40,7 @@ const MovieDetailPage = () => {
   } = movie;
 
   return (
-    <>
+    <main>
       <section
         className="relative flex items-center justify-center w-full h-screen bg-center bg-no-repeat bg-cover bg-primaryDark"
         style={{
@@ -54,70 +48,26 @@ const MovieDetailPage = () => {
         }}
       >
         <div className="flex items-center justify-between gap-5 page-container">
-          <div className="flex flex-col flex-1 mt-10">
+          <section className="flex flex-col flex-1 mt-10">
             <h1 className="mb-3 text-4xl font-semibold text-saga">{title}</h1>
             <small>{release_date}</small>
-
-            <section className="flex items-center gap-2 my-4">
-              {genres &&
-                genres.map((item) => (
-                  <span
-                    className="px-4 py-2 text-sm font-semibold text-black rounded-lg bg-VerdantSaga"
-                    key={item.id}
-                  >
-                    {item.name}
-                  </span>
-                ))}
-            </section>
-
-            <div className="flex flex-wrap items-center gap-3">
-              {production_countries &&
-                production_countries.map((item) => (
-                  <p
-                    key={item.name}
-                    className="p-2 rounded-sm text-saga bg-primaryDark w-fit "
-                  >
-                    {item.name}
-                  </p>
-                ))}
-            </div>
+            <MovieGenres data={genres}></MovieGenres>
+            <MovieProduction data={production_countries}></MovieProduction>
             <p className="mt-5 leading-snug">{overview}</p>
-
+            {/* Vote & View */}
             <div className="flex items-center gap-4 mt-5">
-              <span className="flex items-center gap-1 px-5 py-3 border rounded-lg border-saga text-saga hover:bg-opacity-10 hover:bg-saga">
-                <BiUpvote className="text-xl"></BiUpvote>
+              <Button variant="secondary" size="base">
+                <BiUpvote className="text-lg"></BiUpvote>
                 {vote_average}
-              </span>
-              <span className="flex items-center gap-1 px-5 py-3 border rounded-lg border-saga text-saga hover:bg-opacity-10 hover:bg-saga">
-                <BiUser className="text-xl"></BiUser>
+              </Button>
+              <Button variant="secondary" size="base">
+                <BiUser className="text-lg"></BiUser>
                 {vote_count}
-              </span>
+              </Button>
             </div>
-
-            <div className="flex flex-wrap items-center gap-3 mt-5">
-              {production_companies &&
-                production_companies.map((item) => (
-                  <div
-                    key={item.id}
-                    className="p-5 bg-white w-[100px] rounded-lg"
-                  >
-                    <img
-                      className="object-contain aspect-square"
-                      src={`${MOVIE_CARDIMG}/${item.logo_path}`}
-                      alt=""
-                    />
-                  </div>
-                ))}
-            </div>
-          </div>
-
-          <div className="flex-1 w-full h-full">
-            <img
-              src={`${MOVIE_CARDIMG}/${poster_path}`}
-              className="img-cover"
-              alt=""
-            />
-          </div>
+            <MovieCompany data={production_companies}></MovieCompany>
+          </section>
+          <MoviePoster poster={poster_path}></MoviePoster>
         </div>
 
         {/* Back button */}
@@ -148,7 +98,7 @@ const MovieDetailPage = () => {
           <MovieSimilar id={id}></MovieSimilar>
         </div>
       </section>
-    </>
+    </main>
   );
 };
 

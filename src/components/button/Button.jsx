@@ -28,6 +28,8 @@ const Button = ({
     switch (size) {
       case "small":
         return "py-2 px-4";
+      case "base":
+        return "py-3 px-5";
       case "normal":
         return "px-5 h-[48px]";
       case "big":
@@ -74,7 +76,7 @@ Button.propTypes = {
   className: PropTypes.string,
   link: PropTypes.string,
   variant: PropTypes.oneOf(["primary", "secondary", "bordered"]),
-  size: PropTypes.oneOf(["small", "normal", "big"]),
+  size: PropTypes.oneOf(["small", "normal", "big", "base"]),
 };
 
 export default Button;

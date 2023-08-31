@@ -1,53 +1,19 @@
-import axios from "axios";
+import useOnChange from "../../hooks/useOnChange";
+import useFetchQueryMovies from "../../hooks/useFetchQueryMovies";
+import useActiveHeader from "../../hooks/useActiveHeader";
 import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
-import { API_KEY, API_SEARCH_QUERY, MOVIE_CARDIMG } from "../../utils/config";
-import { Link } from "react-router-dom";
 import MenuDropdown from "../menu/MenuDropdown";
+import { v4 } from "uuid";
+import { Link } from "react-router-dom";
 import MovieSearchItem, {
   MovieSearchItemSkeleton,
 } from "../movies/MovieSearchItem";
-import { v4 } from "uuid";
 /* ====================================================== */
 
 const Header = () => {
-  const [isHeaderActive, setIsHeaderActive] = useState(false);
-  const [searchVal, setSearchVal] = useState("");
-  const [movies, setMovies] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  // Search query
-  useEffect(() => {
-    async function fetchMovies() {
-      setIsLoading(true);
-      if (!searchVal) return;
-      const res = await axios(
-        `${API_SEARCH_QUERY}?api_key=${API_KEY}&query=${searchVal}`
-      );
-      const results = res.data.results;
-      setMovies(results);
-      setIsLoading(false);
-    }
-    fetchMovies();
-  }, [searchVal]);
-
-  // Apply background to header
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsHeaderActive(true);
-      } else {
-        setIsHeaderActive(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+  const { query, handleChange } = useOnChange();
+  const { movies, isLoading } = useFetchQueryMovies(query);
+  const { isHeaderActive } = useActiveHeader();
 
   return (
     <header
@@ -63,14 +29,14 @@ const Header = () => {
         <section className="relative flex items-center w-full max-w-xs gap-2">
           <div className="w-full">
             <input
-              value={searchVal}
-              onChange={(e) => setSearchVal(e.target.value)}
+              value={query}
+              onChange={handleChange}
               className="w-full px-4 py-3 text-sm bg-white border rounded-full shadow-lg bg-opacity-20 focus:border-saga border-slate-600"
               type="text"
               placeholder="Search movies..."
             />
-            {searchVal && (
-              <ul className="absolute  z-30 bg-darkSaga flex flex-col gap-2 min-w-[380px] right-0 mt-2 rounded-md">
+            {query && (
+              <ul className="absolute z-30 bg-darkSaga flex flex-col gap-2 min-w-[380px] right-0 mt-2 rounded-md">
                 {isLoading &&
                   Array(5)
                     .fill(0)
