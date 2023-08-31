@@ -37,6 +37,10 @@ const HomePage = () => {
           <MovieList type="upcoming"></MovieList>
         </div>
       </section>
+
+      <footer className="flex items-center justify-center pb-5">
+        @Copyright by KID-NAME-FINGER 2023
+      </footer>
     </main>
   );
 };

@@ -29,7 +29,7 @@ const MoviesPage = () => {
         <Searchbar value={query} onChange={handleChange}></Searchbar>
 
         {/* Render movies */}
-        <ul className="grid grid-cols-4 gap-5 my-10 ">
+        <ul className="grid grid-cols-2 gap-5 my-10 md:grid-cols-3 xl:grid-cols-4 ">
           {isLoading &&
             Array(6)
               .fill(0)

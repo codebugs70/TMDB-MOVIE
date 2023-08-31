@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 const MoviePoster = ({ poster }) => {
   return (
-    <div className="flex-1 w-full h-screen">
+    <div className="flex-1 hidden w-full h-screen md:block">
       <img
         src={`${MOVIE_CARDIMG}/${poster}`}
         className="img-cover"

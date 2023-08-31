@@ -34,6 +34,7 @@ ul[aria-label="Pagination"] {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 20px;
   font-size: 18px;
   .selected {
@@ -91,6 +92,9 @@ ul[aria-label="Pagination"] {
   color: #fff !important;
   fill: black !important;
   stroke: black !important;
+  @media screen and (max-width: 500px) {
+    display: none !important;
+  }
 }
 .swiper-button-next:hover,
 .swiper-button-prev:hover {

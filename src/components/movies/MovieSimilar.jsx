@@ -28,13 +28,21 @@ const MovieSimilar = ({ id }) => {
   return (
     <ul>
       <Swiper
-        slidesPerView={4}
+        slidesPerView={2}
         spaceBetween={10}
         loop={true}
         centeredSlides={true}
         grabCursor={true}
         navigation={true}
         modules={[Navigation]}
+        breakpoints={{
+          768: {
+            slidesPerView: 3,
+          },
+          1024: {
+            slidesPerView: 4,
+          },
+        }}
         className="mySwiper"
       >
         {moviesSimilar.length > 0 &&

@@ -45,7 +45,8 @@ const Banner = () => {
                     src={`${MOVIE_IMG}/${item.poster_path}`}
                     alt=""
                   />
-                  <div className="absolute w-full max-w-lg top-[150px] left-[150px]">
+
+                  <div className="absolute w-full max-w-lg top-2/4 xl:top-[150px] left-0 md:left-[150px] px-5">
                     <h1 className="text-4xl font-semibold text-saga">
                       {item.title}
                     </h1>
@@ -58,7 +59,8 @@ const Banner = () => {
                       </Button>
                     </div>
                   </div>
-                  <div className="absolute w-full max-w-[1170px] bottom-0 left-2/4 -translate-x-2/4 ">
+
+                  <div className="absolute w-full px-5 max-w-[1170px] hidden lg:block bottom-10 xl:bottom-0 left-2/4 -translate-x-2/4 ">
                     <MoviePreview movieId={item.id}></MoviePreview>
                   </div>
                 </div>

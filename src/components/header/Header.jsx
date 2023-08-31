@@ -22,8 +22,8 @@ const Header = () => {
       } fixed z-[999] w-full py-4`}
     >
       <div className="flex items-center justify-between page-container">
-        <Link to="/" className="text-4xl font-semibold text-linear">
-          TMDB-MOVIE
+        <Link to="/" className="text-xl font-semibold md:text-4xl text-linear">
+          TMDB MOVIE
         </Link>
 
         <section className="relative flex items-center w-full max-w-xs gap-2">
@@ -36,7 +36,7 @@ const Header = () => {
               placeholder="Search movies..."
             />
             {query && (
-              <ul className="absolute z-30 bg-darkSaga flex flex-col gap-2 min-w-[380px] right-0 mt-2 rounded-md">
+              <ul className="absolute z-30 bg-darkSaga shadow-lg flex flex-col gap-2 min-w-[380px] right-0 mt-2 rounded-md">
                 {isLoading &&
                   Array(5)
                     .fill(0)

@@ -54,6 +54,7 @@ const MovieDetailPage = () => {
             <MovieGenres data={genres}></MovieGenres>
             <MovieProduction data={production_countries}></MovieProduction>
             <p className="mt-5 leading-snug">{overview}</p>
+
             {/* Vote & View */}
             <div className="flex items-center gap-4 mt-5">
               <Button variant="secondary" size="base">
@@ -73,27 +74,27 @@ const MovieDetailPage = () => {
         {/* Back button */}
         <Link
           to="/"
-          className="absolute left-[200px] top-10 flex items-center justify-center rounded-full bg-white text-black  border-saga border cursor-pointer font-bold text-xl w-[45px] h-[45px] hover:bg-opacity-75 "
+          className="absolute md:left-10 left-5 xl:left-[200px] top-5 md:top-10 flex items-center justify-center rounded-full bg-white text-black  border-saga border cursor-pointer font-bold text-xl w-[45px] h-[45px] hover:bg-opacity-75 "
         >
           <AiOutlineArrowLeft />
         </Link>
       </section>
 
-      <section className="flex flex-col gap-8 page-container">
+      <section className="flex flex-col md:gap-8 page-container">
         {/* Videos */}
-        <div className="flex flex-col gap-4 my-10 ">
+        <div className="flex flex-col gap-4 my-5 md:my-10 ">
           <Heading>Videos</Heading>
           <MovieVideo id={id}></MovieVideo>
         </div>
 
         {/* Credits */}
-        <div className="flex flex-col gap-4 my-10 ">
+        <div className="flex flex-col gap-4 my-5 md:my-10 ">
           <Heading>Casts</Heading>
           <MovieCredit id={id}></MovieCredit>
         </div>
 
         {/* Similar */}
-        <div className="flex flex-col gap-4 my-10 ">
+        <div className="flex flex-col gap-4 my-5 md:my-10 ">
           <Heading>Similar movies</Heading>
           <MovieSimilar id={id}></MovieSimilar>
         </div>

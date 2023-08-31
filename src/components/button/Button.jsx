@@ -31,7 +31,7 @@ const Button = ({
       case "base":
         return "py-3 px-5";
       case "normal":
-        return "px-5 h-[48px]";
+        return "px-5 h-[35px] md:h-[48px]";
       case "big":
         return "p-5";
 

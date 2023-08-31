@@ -15,12 +15,20 @@ const MovieList = ({ type }) => {
   return (
     <section>
       <Swiper
-        slidesPerView={4}
+        slidesPerView={2}
         spaceBetween={10}
         loop={true}
         centeredSlides={true}
         grabCursor={true}
         navigation={true}
+        breakpoints={{
+          768: {
+            slidesPerView: 3,
+          },
+          1024: {
+            slidesPerView: 4,
+          },
+        }}
         modules={[Navigation]}
         className="mySwiper"
       >
